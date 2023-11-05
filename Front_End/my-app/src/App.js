@@ -148,7 +148,7 @@ function App() {
   return (
     <div className="App">
       {/* Use the mapKey state as a key for MapContainer to control re-render */}
-      <MapContainer key={mapKey} center={homeBasePosition} zoom={13} style={{ height: '100vh', width: '75vw', float: 'left' }}>
+      <MapContainer key={mapKey} center={homeBasePosition} zoom={13} style={{ height: '100vh', width: '71.3vw', float: 'left' }}>
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <Marker position={homeBasePosition} icon={homeBaseIcon}>
           <Popup>Home Base</Popup>
