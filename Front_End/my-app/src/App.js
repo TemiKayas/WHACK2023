@@ -56,14 +56,14 @@ function LocationPopup({ onDeploy, onSetHomeBase }) {
       setPopupInfo(null);
     }
   };
-
+  
   return popupInfo ? (
     <Popup position={popupInfo.latlng} onClose={() => setPopupInfo(null)}>
       <div>
         <strong>Coordinates:</strong><br />
         Latitude: {popupInfo.latlng.lat.toFixed(6)}<br />
         Longitude: {popupInfo.latlng.lng.toFixed(6)}<br />
-        <button onClick={handleDeployClick}>Deploy Drone Here</button>
+        <button onClick={handleDeployClick}>Deploy Network</button>
         <button onClick={handleSetHomeBaseClick}>Set as Home Base</button>
       </div>
     </Popup>
@@ -94,37 +94,43 @@ function DroneInfoPanel({ drones, homeBase, onRemoveDrone }) {
   };
 
   return (
-    <div className="info-panel">
-      <h2>Drone Information</h2>
-      <div className="home-base-info">
-        <h3>Home Base Coordinates</h3>
-        <p>Latitude: {homeBase.lat.toFixed(6)}</p>
-        <p>Longitude: {homeBase.lng.toFixed(6)}</p>
-      </div>
-      {drones.map((drone, index) => {
-        const distance = calculateDistance(drone);
-        const batteryLife = calculateBatteryLife(distance);
-        const eta = calculateETA(distance);
-        const signalStrength = calculateSignalStrength(distance);
+      <div className="info-panel">
+        <div className="pigeon-container"> 
+        <h1>PIGEON</h1>
+        
+        
+        <div className="home-base-info">
+        <h2>Drone Information</h2>
+          <h3>Home Base Coordinates</h3>
+          <p>Latitude: {homeBase.lat.toFixed(6)}</p>
+          <p>Longitude: {homeBase.lng.toFixed(6)}</p>
+        </div>
+        {drones.map((drone, index) => {
+          const distance = calculateDistance(drone);
+          const batteryLife = calculateBatteryLife(distance);
+          const eta = calculateETA(distance);
+          const signalStrength = calculateSignalStrength(distance);
 
-        return (
-          <div key={index} className="drone-info">
-            <h3>Drone Line {index + 1}</h3>
-            <p>Distance from Base: {(distance / 1000).toFixed(2)} Km</p>
-            <p>Battery Life: {batteryLife} %</p>
-            <p>ETA at 50 MPH: {Math.floor(eta) + 3} minutes</p>
-            <p>Signal Strength: {signalStrength} %</p>
-            <p>Amount of Drones: {Math.floor(distance/(200) + 1)} </p>
-            <button onClick={() => onRemoveDrone(index)}>Remove Drone</button>
-          </div>
-        );
-      })}
+          return (
+            <div key={index} className="drone-info">
+              <h3>Drone Line {index + 1}</h3>
+              <p>Distance from Base: {(distance / 1000).toFixed(2)} Km</p>
+              <p>Battery Life: {batteryLife} %</p>
+              <p>ETA at 50 MPH: {Math.floor(eta) + 3} minutes</p>
+              <p>Signal Strength: {signalStrength} %</p>
+              <p>Amount of Drones: {Math.floor(distance/(200) + 1)} </p>
+              <button onClick={() => onRemoveDrone(index)}>Remove Drone</button>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
 
 function App() {
   const [drones, setDrones] = useState([]);
+  const [lineEndPoint, setLineEndPoint] = useState(null); // DAVIDDDDDDD
   const [homeBasePosition, setHomeBasePosition] = useState(L.latLng(31.418189, 34.345129));
   const [mapKey, setMapKey] = useState(Date.now()); // State to control the key of MapContainer
   const radius = 100; // radius in meters
@@ -134,6 +140,7 @@ function App() {
     setMapKey(Date.now()); // Reset the key to force MapContainer to re-render
   };
 
+  
   const handleSetHomeBase = (latlng) => {
     setHomeBasePosition(L.latLng(latlng));
     setMapKey(Date.now()); // Reset the key to force MapContainer to re-render
@@ -147,7 +154,7 @@ function App() {
   return (
     <div className="App">
       {/* Use the mapKey state as a key for MapContainer to control re-render */}
-      <MapContainer key={mapKey} center={homeBasePosition} zoom={13} style={{ height: '100vh', width: '75vw', float: 'left' }}>
+      <MapContainer key={mapKey} center={homeBasePosition} zoom={13} style={{ height: '100vh', width: '71.3vw', float: 'left' }}>
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <Marker position={homeBasePosition} icon={homeBaseIcon}>
           <Popup>Home Base</Popup>
