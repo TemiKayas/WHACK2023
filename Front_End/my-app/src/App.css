@@ -5,8 +5,16 @@
 }
 
 .h1 {
-  position: absolute;
+  text-emphasis-style: bold;
   text-align: center;  
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+} 
+
+.h2 {
+  text-align: left;  
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
 } 
 
 .info-panel {
@@ -21,7 +29,6 @@
   max-height: 100vh;
   overflow-y: auto;
   z-index: 400;
-  text-align: left;
 }
 
 .home-base-info {
