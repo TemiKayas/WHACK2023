@@ -1,0 +1,20 @@
+vision:
+
+drone deployment / tracking web app
+
+goals: 
+
+map visualizer that you can interact with
+
+see which drones you have deployed / drone details (xpos, ypos, battery life, etc)
+
+see drones en route to marker
+
+drones change color once payload is offloaded / recieved
+
+save drone data in database 
+
+users ??
+
+
+
